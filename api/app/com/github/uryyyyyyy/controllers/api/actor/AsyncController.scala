@@ -1,16 +1,16 @@
 package com.github.uryyyyyyy.controllers.api.actor
 
-import javax.inject._
+import javax.inject.{Inject, Singleton}
 
 import akka.actor.ActorSystem
 import org.joda.time.DateTime
-import play.api.mvc._
+import play.api.mvc.{Action, Controller}
 
 import scala.concurrent.duration._
 import scala.concurrent.{Await, ExecutionContext, Future, Promise}
 
 @Singleton
-class Async2Controller @Inject() (actorSystem: ActorSystem, exec: ExecutionContext) extends Controller {
+class AsyncController @Inject() (actorSystem: ActorSystem, exec: ExecutionContext) extends Controller {
 
   def message = Action.async {
     implicit val myExecutionContext: ExecutionContext = actorSystem.dispatchers.lookup("myDispatcher")

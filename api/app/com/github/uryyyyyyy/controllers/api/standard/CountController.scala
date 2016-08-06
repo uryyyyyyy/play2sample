@@ -1,6 +1,6 @@
 package com.github.uryyyyyyy.controllers.api.standard
 
-import javax.inject._
+import javax.inject.{Inject, Singleton}
 
 import akka.actor.ActorSystem
 import com.github.uryyyyyyy.services.MyService

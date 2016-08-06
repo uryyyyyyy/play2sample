@@ -3,7 +3,6 @@ package com.github.uryyyyyyy.services
 import javax.inject.{Inject, Singleton}
 
 import akka.actor.ActorSystem
-import com.github.uryyyyyyy.daos.MyDao
 
 import scala.concurrent.{ExecutionContext, Future}
 
