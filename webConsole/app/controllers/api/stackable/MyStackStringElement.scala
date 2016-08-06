@@ -12,7 +12,11 @@ trait MyStackStringElement extends StackableController {
   private case object StringKey extends RequestAttributeKey[String]
 
   override def proceed[A](req: RequestWithAttributes[A])(f: RequestWithAttributes[A] => Future[Result]): Future[Result] = {
+    implicit val ctx = StackActionExecutionContext(req)
     val str = new Random().nextString(10)
+    val isFail = new Random().nextBoolean()
+    if(isFail) return Future{ BadRequest }
+
     super.proceed(req.set(StringKey, str))(f)
   }
 
