@@ -1,13 +1,15 @@
 package controllers.api.auth
 
+import com.github.uryyyyyyy.utils.Loggable
 import jp.t2v.lab.play2.auth._
+import play.api.mvc.Results.{Forbidden, Unauthorized}
 import play.api.mvc.{RequestHeader, Result, Results}
-import play.api.mvc.Results.{Forbidden, Redirect, Unauthorized}
 
+import scala.collection.mutable
 import scala.concurrent.{ExecutionContext, Future}
 import scala.reflect.{ClassTag, classTag}
 
-trait AuthConfigImpl extends AuthConfig {
+trait AuthConfigImpl extends AuthConfig with Loggable{
 
   /**
     * ユーザを識別するための型。
@@ -47,7 +49,7 @@ trait AuthConfigImpl extends AuthConfig {
     * ログインできたらどうするか？
     */
   override def loginSucceeded(request: RequestHeader)(implicit context: ExecutionContext): Future[Result] = {
-    Future.successful(Results.Ok("login success").withSession("userId" -> ""))
+    Future.successful(Results.Ok("login success"))
   }
 
   /**
@@ -81,4 +83,11 @@ trait AuthConfigImpl extends AuthConfig {
       case _                        => false
     }
   }
+
+  override lazy val idContainer: AsyncIdContainer[Id] = AsyncIdContainer(new SessionHandler[Id](CacheImpl.tokenMap, CacheImpl.tokenMap2))
+}
+
+object CacheImpl{
+  val tokenMap: mutable.Map[String, AuthenticityToken] = mutable.Map()
+  val tokenMap2: mutable.Map[AuthenticityToken, String] = mutable.Map()
 }
