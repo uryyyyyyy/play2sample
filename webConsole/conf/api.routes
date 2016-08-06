@@ -7,3 +7,4 @@ GET     /message4                   controllers.api.actor.AsyncController.messag
 GET     /standard                   controllers.api.standard.MyDIController.message
 
 GET     /ws                   controllers.api.ws.WSController.message
+GET     /stackable                   controllers.api.stackable.StackController.message
