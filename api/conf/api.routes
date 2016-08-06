@@ -1,0 +1,7 @@
+
+GET     /message                    com.github.uryyyyyyy.controllers.api.actor.Async2Controller.message
+GET     /message2                   com.github.uryyyyyyy.controllers.api.actor.Async2Controller.message2
+GET     /message3                   com.github.uryyyyyyy.controllers.api.actor.Async2Controller.message3
+GET     /message4                   com.github.uryyyyyyy.controllers.api.actor.Async2Controller.message4
+
+GET     /standard                   com.github.uryyyyyyy.controllers.api.standard.CountController.message
