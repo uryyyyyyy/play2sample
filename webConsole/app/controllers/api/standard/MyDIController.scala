@@ -9,7 +9,7 @@ import play.api.mvc.{Action, Controller}
 import scala.concurrent.ExecutionContext
 
 @Singleton
-class CountController @Inject() (myService: MyService, actorSystem: ActorSystem) extends Controller {
+class MyDIController @Inject() (myService: MyService, actorSystem: ActorSystem) extends Controller {
 
   implicit val myExecutionContext: ExecutionContext = actorSystem.dispatcher
 

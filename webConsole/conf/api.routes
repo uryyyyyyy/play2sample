@@ -4,4 +4,6 @@ GET     /message2                   controllers.api.actor.AsyncController.messag
 GET     /message3                   controllers.api.actor.AsyncController.message3
 GET     /message4                   controllers.api.actor.AsyncController.message4
 
-GET     /standard                   controllers.api.standard.CountController.message
+GET     /standard                   controllers.api.standard.MyDIController.message
+
+GET     /ws                   controllers.api.ws.WSController.message
