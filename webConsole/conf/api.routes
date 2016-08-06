@@ -1,0 +1,7 @@
+
+GET     /message                    controllers.api.actor.AsyncController.message
+GET     /message2                   controllers.api.actor.AsyncController.message2
+GET     /message3                   controllers.api.actor.AsyncController.message3
+GET     /message4                   controllers.api.actor.AsyncController.message4
+
+GET     /standard                   controllers.api.standard.CountController.message
