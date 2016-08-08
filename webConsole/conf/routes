@@ -5,6 +5,8 @@
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index
 
+GET     /swagger.json           controllers.ApiHelpController.getResources
+
 ->  /api api.Routes
 
 # Map static resources from the /public folder to the /assets URL path

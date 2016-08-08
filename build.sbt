@@ -13,6 +13,7 @@ lazy val commonSettings = Seq(
 
 lazy val webConsole = (project in file("webConsole"))
   .enablePlugins(PlayScala)
+  .dependsOn(swagger)
   .settings(commonSettings)
   .settings(Seq(
     name := "play2Sample-main",
@@ -25,7 +26,8 @@ lazy val webConsole = (project in file("webConsole"))
       "jp.t2v" %% "play2-auth-social" % "0.14.2",
       "jp.t2v" %% "play2-auth-test"   % "0.14.2" % "test",
       "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % Test,
-      "io.swagger" %% "swagger-play2" % "1.5.1",
       "mysql" % "mysql-connector-java" % "5.1.36"
     )
   ))
+
+lazy val swagger = RootProject(uri("ssh://git@github.com/CreditCardsCom/swagger-play.git"))
