@@ -5,7 +5,10 @@
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index
 
-GET     /swagger.json           controllers.ApiHelpController.getResources
+GET     /swagger/getById/:id                   controllers.api.swagger.SwaggerSampleController.getPetById(id: String)
+
+GET     /api-docs               controllers.ApiHelpController.getResources
+GET     /api-docs/swagger           controllers.ApiHelpController.getResource(path = "/swagger/getById")
 
 ->  /api api.Routes
 
