@@ -13,7 +13,12 @@ class AuthorizeController @Inject() (actorSystem: ActorSystem) extends Controlle
 
   implicit val myExecutionContext: ExecutionContext = actorSystem.dispatcher
 
-  def checkAuthority = AsyncStack(AuthorityKey -> Administrator) { implicit request =>
+  def checkAdminRole = AsyncStack(AuthorityKey -> Administrator) { implicit request =>
+    val user = loggedIn
+    Future{ Ok("id: " + user.id)}
+  }
+
+  def checkNormalRole = AsyncStack(AuthorityKey -> NormalUser) { implicit request =>
     val user = loggedIn
     Future{ Ok("id: " + user.id)}
   }

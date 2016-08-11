@@ -8,7 +8,13 @@ GET     /standard                   controllers.api.standard.MyDIController.mess
 
 GET     /ws                   controllers.api.ws.WSController.message
 GET     /stackable                   controllers.api.stackable.StackController.message
-GET     /auth/:userId/:password                   controllers.api.auth.AuthenticateController.login(userId: String, password: String)
-GET     /auth/checkAuthority                   controllers.api.auth.AuthorizeController.checkAuthority
+#GET     /auth/:userId/:password                   controllers.api.auth.AuthenticateController.login(userId: String, password: String)
+#GET     /auth/checkAuthority                   controllers.api.auth.AuthorizeController.checkAuthority
 
 GET     /swagger/getById/:id                   controllers.api.swagger.SwaggerSampleController.getPetById(id: String)
+
+POST     /authentication/login               controllers.api.auth.AuthenticateController.login
+GET     /authentication/logout              controllers.api.auth.AuthenticateController.logout
+
+GET     /authorization/admin              controllers.api.auth.AuthorizeController.checkAdminRole
+GET     /authorization/normal              controllers.api.auth.AuthorizeController.checkNormalRole

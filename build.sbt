@@ -1,5 +1,7 @@
 name := """play2Sample"""
 
+scalaVersion := "2.11.8"
+
 resolvers ++= Seq(
   "Sonatype OSS Snapshots" at "http://oss.sonatype.org/content/repositories/snapshots",
   "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/"

@@ -1,5 +1,6 @@
 package controllers
 
+import java.io.File
 import javax.inject.{Inject, Singleton}
 
 import play.api.mvc.{Action, Controller}
@@ -19,6 +20,11 @@ class HomeController @Inject() extends Controller {
    */
   def index = Action {
     Ok(views.html.index("Your new application is ready."))
+  }
+
+  def home(path: String) = Action {
+    val f = new File("webConsole/front/index.html")
+    Ok(scala.io.Source.fromFile(f.getCanonicalPath).mkString).as("text/html")
   }
 
 }
