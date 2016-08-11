@@ -1,7 +1,7 @@
 import {connect} from "react-redux";
 import {DispatchActions} from "./Models";
 import {Dispatch} from "redux";
-import Counter from "./Counter";
+import Counter from "./Home";
 
 export default connect(
     (store: any) => {return {state: store.authCheckReducer}},

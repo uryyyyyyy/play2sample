@@ -1,6 +1,7 @@
-import {MyAction, ActionTypes, JsonObject} from "./Models";
+import {MyAction, ActionTypes} from "./Models";
 import * as axios from "axios";
 import {browserHistory} from "react-router";
+import {config} from "../Models";
 
 export function login(id: string, password: string) {
     return (dispatch: (action: MyAction) => any) => {
@@ -15,13 +16,8 @@ export function login(id: string, password: string) {
 
         dispatch({ type: ActionTypes.LOGIN_REQUEST});
 
-        const config = {
-            timeout: 5000,
-            headers: {'Content-Type': 'application/json'}
-        };
-
         const postObj = {id: id, password: password};
-        return axios.post('/api/auth/login', JSON.stringify(postObj), config)
+        return axios.post('/api/authentication/login', JSON.stringify(postObj), config)
             .then(successCB)
             .catch(failCB)
     }

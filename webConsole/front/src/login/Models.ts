@@ -24,7 +24,8 @@ export class DispatchActions {
 }
 
 export class ActionTypes{
-    static LOGIN_REQUEST = 'LOGIN_REQUEST';
+    static LOGIN_REQUEST = 'LOGOUT_REQUEST';
+    static LOGOUT_REQUEST = 'LOGOUT_REQUEST';
     static LOGIN_SUCCESS = 'LOGIN_SUCCESS';
     static LOGIN_FAIL = 'LOGIN_FAIL';
 }

@@ -2,7 +2,7 @@ package controllers.api.auth
 
 import com.github.uryyyyyyy.utils.Loggable
 import jp.t2v.lab.play2.auth._
-import play.api.mvc.Results.{Forbidden, Unauthorized}
+import play.api.mvc.Results.Forbidden
 import play.api.mvc.{RequestHeader, Result, Results}
 
 import scala.collection.mutable
@@ -49,21 +49,27 @@ trait AuthConfigImpl extends AuthConfig with Loggable{
     * ログインできたらどうするか？
     */
   override def loginSucceeded(request: RequestHeader)(implicit context: ExecutionContext): Future[Result] = {
-    Future.successful(Results.Ok("login success"))
+    Future.successful(Results.Redirect("/"))
   }
 
   /**
     * ログアウトしたらどうするか？
     */
   override def logoutSucceeded(request: RequestHeader)(implicit context: ExecutionContext): Future[Result] = {
-    Future.successful(Results.Ok("logout success"))
+    Future.successful(Results.Redirect("/login"))
   }
 
   /**
     * 認証に失敗したらどうするか？
     */
   override def authenticationFailed(request: RequestHeader)(implicit context: ExecutionContext): Future[Result] = {
-    Future.successful(Unauthorized("Bad credentials"))
+    println(request.acceptedTypes.map(_.toString()).mkString("\n"))
+
+    if(request.acceptedTypes.map(_.toString()).contains("text/html")){
+      Future.successful(Results.Redirect("/login?login=failed"))
+    }else{
+      Future.successful(Forbidden("No permission"))
+    }
   }
 
   /**
