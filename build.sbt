@@ -18,6 +18,10 @@ lazy val webConsole = (project in file("webConsole"))
   .settings(Seq(
     name := "play2Sample-main",
     libraryDependencies ++= Seq(
+      cache,
+      "jp.t2v" %% "play2-auth"        % "0.14.2",
+      "jp.t2v" %% "play2-auth-social" % "0.14.2",
+      "jp.t2v" %% "play2-auth-test"   % "0.14.2" % "test",
       "jp.t2v" %% "stackable-controller" % "0.6.0",
       "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % Test,
       "org.mockito" % "mockito-all" % "1.10.19" % Test
