@@ -12,8 +12,13 @@ import scala.concurrent._
 @Singleton
 class AsyncController @Inject() (actorSystem: ActorSystem, context: ExecutionContext) extends Controller {
 
-  def message = Action.async {
+  def myDispatcher = Action.async {
     implicit val myExecutionContext: ExecutionContext = actorSystem.dispatchers.lookup("myDispatcher")
+    execution()
+  }
+
+  def myDispatcher2 = Action.async {
+    implicit val myExecutionContext: ExecutionContext = actorSystem.dispatchers.lookup("myDispatcher2")
     execution()
   }
 
@@ -41,7 +46,7 @@ class AsyncController @Inject() (actorSystem: ActorSystem, context: ExecutionCon
     val fList = (1 to 10).map(_ => Future{Thread.sleep(1000);println(Thread.currentThread.getName + ": " + DateTime.now)})
     Await.result(Future.sequence(fList), Duration.Inf)
     println("finish")
-    Future{"hallo"}.map { msg => Ok(msg) }
+    Future{"hello"}.map(Ok(_))
   }
 
 }
