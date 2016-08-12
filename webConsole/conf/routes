@@ -11,6 +11,7 @@ GET     /api-docs               controllers.ApiHelpController.getResources
 ->  /api api.Routes
 
 GET     /public/*file               controllers.Assets.versioned(path="/public", file: Asset)
+GET     /favicon.ico               controllers.Assets.at(path="/public/images", file="favicon.png")
 
 GET /routes    controllers.HomeController.routes
 GET /dist/*path    controllers.HomeController.dist(path)

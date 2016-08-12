@@ -4,6 +4,7 @@
     "chai": "registry:dt/chai#3.4.0+20160601211834",
     "jquery": "registry:dt/jquery#1.10.0+20160704162008",
     "jsdom": "registry:dt/jsdom#2.0.0+20160316155526",
+    "materialize-css": "registry:dt/materialize-css#0.97.5+20160628040906",
     "mocha": "registry:dt/mocha#2.2.5+20160720003353",
     "nock": "registry:dt/nock#0.54.0+20160613160405",
     "node": "registry:dt/node#6.0.0+20160728152422",

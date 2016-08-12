@@ -7,7 +7,7 @@ import akka.actor.ActorSystem
 import controllers.api.auth.{AuthConfigImpl, NormalUser}
 import jp.t2v.lab.play2.auth.AuthElement
 import play.api.Play
-import play.api.mvc.{Action, Controller}
+import play.api.mvc.{Action, Controller, Result}
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -18,28 +18,29 @@ class HomeController @Inject() (actorSystem: ActorSystem) extends Controller wit
   implicit val myExecutionContext: ExecutionContext = actorSystem.dispatcher
 
   def index = AsyncStack(AuthorityKey -> NormalUser) { implicit request =>
-    Future {
-      val f = new File("webConsole/front/index.html")
-      Ok(scala.io.Source.fromFile(f.getCanonicalPath).mkString).as("text/html")
-    }
+    Future {loadIndex()}
   }
 
   def indexAll(path: String) = AsyncStack(AuthorityKey -> NormalUser) { implicit request =>
-    Future {
-      val f = new File("webConsole/front/index.html")
-      Ok(scala.io.Source.fromFile(f.getCanonicalPath).mkString).as("text/html")
-    }
+    Future {loadIndex()}
   }
 
   def loginForm = Action.async {
-    Future {
-      val f = new File("webConsole/front/index.html")
-      Ok(scala.io.Source.fromFile(f.getCanonicalPath).mkString).as("text/html")
-    }
+    Future {loadIndex()}
+  }
+
+  def loadIndex():Result = {
+    val f = new File("webConsole/front/index.html")
+    Ok(scala.io.Source.fromFile(f.getCanonicalPath).mkString).as("text/html")
   }
 
   def dist(path: String) = Action {
     val f = new File("webConsole/front/dist/" + path)
+    Ok(scala.io.Source.fromFile(f.getCanonicalPath).mkString).as("text/html")
+  }
+
+  def favicon() = Action {
+    val f = new File("webConsole/front/public/favicon")
     Ok(scala.io.Source.fromFile(f.getCanonicalPath).mkString).as("text/html")
   }
 

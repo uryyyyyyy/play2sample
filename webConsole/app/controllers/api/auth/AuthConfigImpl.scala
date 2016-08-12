@@ -56,7 +56,7 @@ trait AuthConfigImpl extends AuthConfig with Loggable{
     * ログアウトしたらどうするか？
     */
   override def logoutSucceeded(request: RequestHeader)(implicit context: ExecutionContext): Future[Result] = {
-    Future.successful(Results.Redirect("/login"))
+    Future.successful(Results.Redirect("/login?logout=true"))
   }
 
   /**
@@ -66,9 +66,9 @@ trait AuthConfigImpl extends AuthConfig with Loggable{
     println(request.acceptedTypes.map(_.toString()).mkString("\n"))
 
     if(request.acceptedTypes.map(_.toString()).contains("text/html")){
-      Future.successful(Results.Redirect("/login?login=failed"))
+      Future.successful(Results.Redirect("/login?failed=true"))
     }else{
-      Future.successful(Forbidden("No permission"))
+      Future.successful(Results.Unauthorized("Unauthorized"))
     }
   }
 
@@ -76,7 +76,7 @@ trait AuthConfigImpl extends AuthConfig with Loggable{
     * 権限がないアクセスはどうするか？
     */
   override def authorizationFailed(request: RequestHeader, user: User, authority: Option[Authority])(implicit context: ExecutionContext): Future[Result] = {
-    Future.successful(Forbidden("No permission"))
+    Future.successful(Results.Forbidden("No permission"))
   }
 
   /**

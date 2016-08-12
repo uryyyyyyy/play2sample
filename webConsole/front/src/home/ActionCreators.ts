@@ -2,6 +2,7 @@ import {MyAction, ActionTypes} from "./Models";
 import * as axios from "axios";
 import {browserHistory} from "react-router";
 import {config} from "../Models";
+import {toast} from "../MaterilizeUtil";
 
 export function logout() {
     return (dispatch: (action: MyAction) => any) => {
@@ -27,8 +28,8 @@ export function checkAdminRole() {
 
         function failCB(ex:any):void {
             console.log(ex);
-            if(ex.status === 403){
-                browserHistory.push('/login');
+            if(ex.status === 401){
+                browserHistory.push('/login?failed=true');
             }
         }
 
@@ -48,9 +49,10 @@ export function checkNormalRole() {
     return (dispatch: (action: MyAction) => any) => {
 
         function failCB(ex:any):void {
+            toast('failed!!!');
             console.log(ex);
-            if(ex.status === 403){
-                browserHistory.push('/login');
+            if(ex.status === 401){
+                browserHistory.push('/login?failed=true');
             }
         }
 
