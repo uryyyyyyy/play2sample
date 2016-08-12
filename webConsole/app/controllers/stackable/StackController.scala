@@ -6,9 +6,13 @@ import akka.actor.ActorSystem
 import play.api.mvc.Controller
 
 import scala.concurrent.{ExecutionContext, Future}
+import scala.util.Random
 
 @Singleton
-class StackController @Inject() (actorSystem: ActorSystem) extends Controller with MyStackLongElement {
+class StackController @Inject() (
+  override val actorSystem: ActorSystem,
+  override val random:Random = new Random
+) extends Controller with MyStackLongElement {
 
   implicit val myExecutionContext: ExecutionContext = actorSystem.dispatcher
 
