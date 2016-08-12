@@ -6,9 +6,9 @@ import play.api.db.Databases
 
 class MyDaoImplTest extends FunSpec with MustMatchers with MockitoSugar {
 
-  describe("MyServiceImplTest") {
+  describe("MyDaoImplTest") {
 
-    it("service"){
+    it("dao"){
       val database = Databases(
         "org.h2.Driver",
         "jdbc:h2:mem:play"
@@ -17,6 +17,8 @@ class MyDaoImplTest extends FunSpec with MustMatchers with MockitoSugar {
       val dao = new MyDaoImpl(database)
       val result = dao.exec()
       result mustBe Some("2")
+
+      database.shutdown()
     }
   }
 

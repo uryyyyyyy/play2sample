@@ -2,7 +2,6 @@ package com.github.uryyyyyyy.services
 
 import akka.actor.ActorSystem
 import com.github.uryyyyyyy.daos.MyDao
-import org.mockito.Matchers.any
 import org.mockito.Mockito._
 import org.scalatest.mock.MockitoSugar
 import org.scalatest.{FunSpec, MustMatchers}
