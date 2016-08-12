@@ -31,7 +31,7 @@ trait AuthConfigImpl extends AuthConfig with Loggable{
   }
 
   override def loginSucceeded(request: RequestHeader)(implicit context: ExecutionContext): Future[Result] = {
-    Future.successful(Results.Ok("login success"))
+    Future.successful(Results.Redirect(routes.GithubOauthController.showSignIn()))
   }
 
   override def logoutSucceeded(request: RequestHeader)(implicit context: ExecutionContext): Future[Result] = {

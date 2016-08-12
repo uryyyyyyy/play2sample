@@ -4,5 +4,6 @@
 
 # An example controller showing a sample home page
 
-GET     /authentication/login/:userId/:password               controllers.auth.AuthenticateController.login(userId: String, password: String)
-GET     /authentication/logout              controllers.auth.AuthenticateController.logout
+GET      /github/signin                              controllers.auth.GithubOauthController.showSignIn
+GET      /github/signout                             controllers.auth.GithubOauthController.signOut
+GET      /github/callback                         controllers.auth.GithubOauthController.callBackGitHub(code:String)

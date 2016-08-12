@@ -2,7 +2,6 @@ package utils
 
 case class MyUser(
   id: String,
-  pass: String,
   role: MyRole)
 
 

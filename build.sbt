@@ -18,6 +18,7 @@ lazy val webConsole = (project in file("webConsole"))
   .settings(Seq(
     name := "play2Sample-main",
     libraryDependencies ++= Seq(
+      ws,
       cache,
       "jp.t2v" %% "play2-auth"        % "0.14.2",
       "jp.t2v" %% "play2-auth-social" % "0.14.2",

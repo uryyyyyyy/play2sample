@@ -1,0 +1,5 @@
+@(clientID: String)(implicit flash: play.api.mvc.Flash)
+
+<a class="btn btn-large" href="https://github.com/login/oauth/authorize?client_id=@clientID&scope=user:email">Login with GitHub</a>
+
+<a href="/github/signout">sign out</a>
