@@ -16,7 +16,7 @@ trait MyStackLongElement extends StackableController {
   private case object LongKey extends RequestAttributeKey[Long]
 
   override def proceed[A](req: RequestWithAttributes[A])(f: RequestWithAttributes[A] => Future[Result]): Future[Result] = {
-    implicit val ctx = StackActionExecutionContext(req)
+    implicit val ctx = actorSystem.dispatcher
     val long = random.nextLong()
     val isFail = random.nextBoolean()
     if(isFail) return Future{ BadRequest }
@@ -25,5 +25,4 @@ trait MyStackLongElement extends StackableController {
   }
 
   def getStackedLong()(implicit req: RequestWithAttributes[_]): Long = req.get(LongKey).get
-
 }
