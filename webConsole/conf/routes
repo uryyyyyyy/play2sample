@@ -7,3 +7,6 @@
 GET      /github/signin                              controllers.auth.GithubOauthController.showSignIn
 GET      /github/signout                             controllers.auth.GithubOauthController.signOut
 GET      /github/callback                         controllers.auth.GithubOauthController.callBackGitHub(code:String)
+
+GET      /github/authorize/admin                         controllers.auth.GithubOauthAuthorizeController.checkAdminRole()
+GET      /github/authorize/normal                         controllers.auth.GithubOauthAuthorizeController.checkNormalRole()

@@ -1,0 +1,25 @@
+package controllers.auth
+
+import javax.inject.Inject
+
+import akka.actor.ActorSystem
+import jp.t2v.lab.play2.auth.AuthElement
+import play.api.mvc.Controller
+import utils.{Administrator, NormalUser}
+
+import scala.concurrent.{ExecutionContext, Future}
+
+class GithubOauthAuthorizeController @Inject()(actorSystem: ActorSystem) extends Controller with AuthElement with AuthConfigImpl {
+
+  implicit val myExecutionContext: ExecutionContext = actorSystem.dispatcher
+
+  def checkAdminRole = AsyncStack(AuthorityKey -> Administrator) { implicit request =>
+    val user = loggedIn
+    Future{ Ok("id: " + user.id)}
+  }
+
+  def checkNormalRole = AsyncStack(AuthorityKey -> NormalUser) { implicit request =>
+    val user = loggedIn
+    Future{ Ok("id: " + user.id)}
+  }
+}
