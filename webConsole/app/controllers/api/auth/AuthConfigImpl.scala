@@ -11,15 +11,8 @@ import scala.reflect.{ClassTag, classTag}
 
 trait AuthConfigImpl extends AuthConfig with Loggable{
 
-  /**
-    * ユーザを識別するための型。
-    * `String`, `Int`, `Long` など。
-    */
   override type Id = String
 
-  /**
-    * ユーザを表現する型。modelなどに定義したclassの型を指定する。
-    */
   override type User = MyUser
 
   /**
@@ -33,38 +26,21 @@ trait AuthConfigImpl extends AuthConfig with Loggable{
     */
   override val idTag: ClassTag[Id] = classTag[Id]
 
-  /**
-    * セッションがタイムアウトするまでの時間(秒)
-    */
   override def sessionTimeoutInSeconds: Int = 3600 // 1時間
 
-  /**
-    * `Id`からユーザを探す方法。
-    */
   override def resolveUser(id: Id)(implicit context: ExecutionContext): Future[Option[User]] = {
     Future.successful(AuthService.userOfId(id))
   }
 
-  /**
-    * ログインできたらどうするか？
-    */
   override def loginSucceeded(request: RequestHeader)(implicit context: ExecutionContext): Future[Result] = {
     Future.successful(Results.Redirect("/"))
   }
 
-  /**
-    * ログアウトしたらどうするか？
-    */
   override def logoutSucceeded(request: RequestHeader)(implicit context: ExecutionContext): Future[Result] = {
     Future.successful(Results.Redirect("/login?logout=true"))
   }
 
-  /**
-    * 認証に失敗したらどうするか？
-    */
   override def authenticationFailed(request: RequestHeader)(implicit context: ExecutionContext): Future[Result] = {
-    println(request.acceptedTypes.map(_.toString()).mkString("\n"))
-
     if(request.acceptedTypes.map(_.toString()).contains("text/html")){
       Future.successful(Results.Redirect("/login?failed=true"))
     }else{
@@ -72,16 +48,10 @@ trait AuthConfigImpl extends AuthConfig with Loggable{
     }
   }
 
-  /**
-    * 権限がないアクセスはどうするか？
-    */
   override def authorizationFailed(request: RequestHeader, user: User, authority: Option[Authority])(implicit context: ExecutionContext): Future[Result] = {
     Future.successful(Results.Forbidden("No permission"))
   }
 
-  /**
-    * ユーザが権限を持っているかを判定する関数。
-    */
   override def authorize(user: User, authority: Authority)(implicit context: ExecutionContext): Future[Boolean] = Future.successful {
     (user.role, authority) match {
       case (Administrator, _)       => true // AdminならどんなActionでも全権限を開放

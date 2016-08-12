@@ -38,7 +38,7 @@ class AuthenticateController @Inject() (actorSystem: ActorSystem) extends Contro
 
     myUser match {
       case Left(r) => Future{r}
-      case Right(user) => gotoLoginSucceeded(user.id)
+      case Right(user) => gotoLoginSucceeded(user.id).map(_.withCookies(Cookie("userId", user.id), Cookie("userRole", user.role.toString)))
     }
   }
 

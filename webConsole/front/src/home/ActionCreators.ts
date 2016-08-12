@@ -2,7 +2,6 @@ import {MyAction, ActionTypes} from "./Models";
 import * as axios from "axios";
 import {browserHistory} from "react-router";
 import {config} from "../Models";
-import {toast} from "../MaterilizeUtil";
 
 export function logout() {
     return (dispatch: (action: MyAction) => any) => {
@@ -23,18 +22,20 @@ export function logout() {
     }
 }
 
-export function checkAdminRole() {
+export function checkAdminRole(toast: any) {
     return (dispatch: (action: MyAction) => any) => {
 
         function failCB(ex:any):void {
             console.log(ex);
+            toast("error", "some error", "error");
             if(ex.status === 401){
                 browserHistory.push('/login?failed=true');
             }
         }
 
         function successCB(json:Axios.AxiosXHR<any>):void {
-            console.log(json)
+            console.log(json);
+            toast("info", json.data, "info");
         }
 
         dispatch({ type: ActionTypes.REQUEST_START});
@@ -45,11 +46,11 @@ export function checkAdminRole() {
     }
 }
 
-export function checkNormalRole() {
+export function checkNormalRole(toast: any) {
     return (dispatch: (action: MyAction) => any) => {
 
         function failCB(ex:any):void {
-            toast('failed!!!');
+            toast("error", "some error", "error");
             console.log(ex);
             if(ex.status === 401){
                 browserHistory.push('/login?failed=true');
@@ -57,7 +58,8 @@ export function checkNormalRole() {
         }
 
         function successCB(json:Axios.AxiosXHR<any>):void {
-            console.log(json)
+            console.log(json);
+            toast("info", json.data, "info");
         }
 
         dispatch({ type: ActionTypes.REQUEST_START});

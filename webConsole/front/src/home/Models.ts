@@ -18,12 +18,12 @@ export class DispatchActions {
         this.dispatch = dispatch
     }
 
-    public checkAdminRole() {
-        this.dispatch(checkAdminRole())
+    public checkAdminRole(toast: any) {
+        this.dispatch(checkAdminRole(toast))
     }
 
-    public checkNormalRole() {
-        this.dispatch(checkNormalRole())
+    public checkNormalRole(toast: any) {
+        this.dispatch(checkNormalRole(toast))
     }
 
     public logout() {
