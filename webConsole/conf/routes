@@ -4,8 +4,4 @@
 
 # An example controller showing a sample home page
 
-GET     /myDispatcher                    controllers.async.AsyncController.myDispatcher
-GET     /myDispatcher2                   controllers.async.AsyncController.myDispatcher2
-GET     /message3                   controllers.async.AsyncController.message3
-GET     /message4                   controllers.async.AsyncController.message4
-GET     /message5                   controllers.async.AsyncController.message5
+GET     /di                   controllers.di.MyDIController.message
