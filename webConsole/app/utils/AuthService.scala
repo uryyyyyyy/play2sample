@@ -1,4 +1,4 @@
-package controllers.auth
+package utils
 
 object AuthService {
   private val users = List[MyUser](
@@ -6,11 +6,8 @@ object AuthService {
     MyUser("normal", "pass2", NormalUser)
   )
 
-  def makeSession(id: String): Option[MyUser] = {
-    users.find(_.id == id)
-  }
-
   def userOfId(userId: String): Option[MyUser] = {
+    //本当はDBに繋ぐ
     users.find(_.id == userId)
   }
 

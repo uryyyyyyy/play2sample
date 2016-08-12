@@ -4,4 +4,5 @@
 
 # An example controller showing a sample home page
 
-GET     /stackable                   controllers.stackable.StackController.message
+GET     /authentication/login/:userId/:password               controllers.auth.AuthenticateController.login(userId: String, password: String)
+GET     /authentication/logout              controllers.auth.AuthenticateController.logout

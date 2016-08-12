@@ -1,4 +1,4 @@
-package controllers.auth
+package utils
 
 case class MyUser(
   id: String,
