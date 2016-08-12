@@ -6,3 +6,6 @@
 
 GET     /authentication/login/:userId/:password               controllers.auth.AuthenticateController.login(userId: String, password: String)
 GET     /authentication/logout              controllers.auth.AuthenticateController.logout
+
+GET     /authorize/admin              controllers.auth.AuthorizeController.checkAdminRole
+GET     /authorize/normal              controllers.auth.AuthorizeController.checkNormalRole

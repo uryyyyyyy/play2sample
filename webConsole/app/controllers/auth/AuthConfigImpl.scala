@@ -47,8 +47,13 @@ trait AuthConfigImpl extends AuthConfig with Loggable{
   }
 
   override def authorize(user: User, authority: Authority)(implicit context: ExecutionContext): Future[Boolean] = {
-    //Authorizationの時に書く
-    Future.successful(true)
+    Future.successful(
+      (user.role, authority) match {
+        case (Administrator, _)       => true // AdminならどんなActionでも全権限を開放
+        case (NormalUser, NormalUser) => true // ユーザがNormalUserで、ActionがNormalUserなら権限あり。もしActionがAdminだけなら権限なしになる。
+        case _                        => false
+      }
+    )
   }
 
   override lazy val idContainer: AsyncIdContainer[Id] = AsyncIdContainer(new CacheIdContainer[Id])
