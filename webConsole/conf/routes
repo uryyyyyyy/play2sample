@@ -4,4 +4,4 @@
 
 # An example controller showing a sample home page
 
-GET     /di                   controllers.di.MyDIController.message
+GET     /stackable                   controllers.stackable.StackController.message
