@@ -4,19 +4,7 @@
 
 # An example controller showing a sample home page
 
-GET     /swagger/getById/:id                   controllers.api.swagger.SwaggerSampleController.getPetById(id: String)
-
-GET     /api-docs               controllers.ApiHelpController.getResources
-
-->  /api api.Routes
-
-GET     /public/*file               controllers.Assets.versioned(path="/public", file: Asset)
-GET     /favicon.ico               controllers.Assets.at(path="/public/images", file="favicon.png")
-
-GET /routes    controllers.HomeController.routes
-GET /dist/*path    controllers.HomeController.dist(path)
-
-GET /login    controllers.HomeController.loginForm
-
-GET /    controllers.HomeController.index
-GET /*path    controllers.HomeController.indexAll(path)
+GET     /swagger.json               controllers.ApiHelpController.getResources
+GET     /swagger/getById/:id                   controllers.swagger.UserController.getById(id: Long)
+GET     /swagger/getAll                   controllers.swagger.UserController.getAll()
+POST     /swagger/edit                   controllers.swagger.UserController.edit()
