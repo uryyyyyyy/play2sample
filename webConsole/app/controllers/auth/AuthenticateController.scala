@@ -22,12 +22,7 @@ class AuthenticateController @Inject() (actorSystem: ActorSystem, val authServic
   }
 
   def login(userId: String, password: String) = Action.async { implicit request =>
-
-    val myUser = for{
-      myUser <- authenticate(userId, password).right
-    } yield myUser
-
-    myUser match {
+    authenticate(userId, password) match {
       case Left(r) => Future{r}
       case Right(user) => gotoLoginSucceeded(user.id)
     }

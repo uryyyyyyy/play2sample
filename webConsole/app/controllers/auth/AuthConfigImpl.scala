@@ -7,13 +7,13 @@ import utils._
 import scala.concurrent.{ExecutionContext, Future}
 import scala.reflect.{ClassTag, classTag}
 
-trait AuthConfigImpl extends AuthConfig with Loggable{
+trait AuthConfigImpl extends AuthConfig {
+
+  val authService: AuthService
 
   override type Id = String
 
   override type User = MyUser
-
-  val authService: AuthService
 
   /**
     * 認可のために使う権限を表現した型。
@@ -58,5 +58,16 @@ trait AuthConfigImpl extends AuthConfig with Loggable{
     )
   }
 
+  /**
+    * セッショントークンの管理をします。デフォルトではPlayのCache APIを用いています。
+    */
   override lazy val idContainer: AsyncIdContainer[Id] = AsyncIdContainer(new CacheIdContainer[Id])
+
+  /**
+    * tokenのやりとりをどのように行うかを定義します。
+    * デフォルトではCookieによるトークンの授受が実装されています。
+    */
+  override lazy val tokenAccessor: TokenAccessor = new CookieTokenAccessor(
+    cookieMaxAge = Some(sessionTimeoutInSeconds)
+  )
 }
