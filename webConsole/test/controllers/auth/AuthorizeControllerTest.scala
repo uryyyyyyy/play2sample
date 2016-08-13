@@ -15,7 +15,7 @@ class AuthorizeControllerTest extends FunSpec with MustMatchers with MockitoSuga
 
     implicit val timeout = Timeout(5000, TimeUnit.MILLISECONDS)
 
-    it("AuthorizeController"){
+    it("returnUser"){
 
       val actorSystem = ActorSystem.apply()
       val controller = new AuthorizeController(actorSystem, null)
