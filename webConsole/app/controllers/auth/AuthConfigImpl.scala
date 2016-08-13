@@ -58,7 +58,7 @@ trait AuthConfigImpl extends AuthConfig {
 
   /**
     * tokenのやりとりをどのように行うかを定義します。
-    * overrideしなくてもデフォルトではCookieによるトークンの授受が実装されています。
+    * デフォルトではCookieによるトークンの授受が実装されています。
     */
   override lazy val tokenAccessor: TokenAccessor = new CookieTokenAccessor(
     cookieMaxAge = Some(sessionTimeoutInSeconds)
