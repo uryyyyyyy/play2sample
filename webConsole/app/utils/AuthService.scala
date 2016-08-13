@@ -1,6 +1,6 @@
 package utils
 
-object AuthService {
+class AuthService() {
   private val users = List[MyUser](
     MyUser("admin", "pass1", Administrator),
     MyUser("normal", "pass2", NormalUser)

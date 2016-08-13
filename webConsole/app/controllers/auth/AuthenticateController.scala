@@ -10,12 +10,12 @@ import utils.{AuthService, MyUser}
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class AuthenticateController @Inject() (actorSystem: ActorSystem) extends Controller with LoginLogout with AuthConfigImpl {
+class AuthenticateController @Inject() (actorSystem: ActorSystem, val authService: AuthService) extends Controller with LoginLogout with AuthConfigImpl {
 
   implicit val myExecutionContext: ExecutionContext = actorSystem.dispatcher
 
   private def authenticate(userId: String, password: String): Either[Result, MyUser] = {
-    AuthService.authenticate(userId, password) match {
+    authService.authenticate(userId, password) match {
       case None => Left(Unauthorized("authentication failed"))
       case Some(user) => Right(user)
     }

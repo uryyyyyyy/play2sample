@@ -4,24 +4,29 @@ import javax.inject.{Inject, Singleton}
 
 import akka.actor.ActorSystem
 import jp.t2v.lab.play2.auth.AuthElement
-import play.api.mvc.Controller
-import utils.{Administrator, NormalUser}
+import play.api.mvc.{Controller, Result}
+import utils.{Administrator, AuthService, MyUser, NormalUser}
 
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class AuthorizeController @Inject() (actorSystem: ActorSystem) extends Controller with AuthElement with AuthConfigImpl {
+class AuthorizeController @Inject() (actorSystem: ActorSystem,
+  val authService: AuthService) extends Controller with AuthElement with AuthConfigImpl {
 
   implicit val myExecutionContext: ExecutionContext = actorSystem.dispatcher
 
   def checkAdminRole = AsyncStack(AuthorityKey -> Administrator) { implicit request =>
     val user = loggedIn
-    Future{ Ok("id: " + user.id)}
+    returnUser(user)
+  }
+
+  def returnUser(user:MyUser): Future[Result] ={
+    Future(Ok("id: " + user.id))
   }
 
   def checkNormalRole = AsyncStack(AuthorityKey -> NormalUser) { implicit request =>
     val user = loggedIn
-    Future{ Ok("id: " + user.id)}
+    Future(Ok("id: " + user.id))
   }
 
 }

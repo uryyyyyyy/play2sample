@@ -13,6 +13,8 @@ trait AuthConfigImpl extends AuthConfig with Loggable{
 
   override type User = MyUser
 
+  val authService: AuthService
+
   /**
     * 認可のために使う権限を表現した型。
     */
@@ -27,7 +29,7 @@ trait AuthConfigImpl extends AuthConfig with Loggable{
   override def sessionTimeoutInSeconds: Int = 3600 // 1時間
 
   override def resolveUser(id: Id)(implicit context: ExecutionContext): Future[Option[User]] = {
-    Future.successful(AuthService.userOfId(id))
+    Future.successful(authService.userOfId(id))
   }
 
   override def loginSucceeded(request: RequestHeader)(implicit context: ExecutionContext): Future[Result] = {
