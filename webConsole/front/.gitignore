@@ -4,3 +4,5 @@ node_modules/
 typings/modulues
 typings/
 npm-debug.log/
+public/dist/
+public/libs/

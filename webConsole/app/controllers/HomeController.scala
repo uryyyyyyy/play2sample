@@ -23,18 +23,8 @@ class HomeController @Inject() (actorSystem: ActorSystem) extends Controller{
     Future {loadIndex()}
   }
 
-  def loadIndex():Result = {
+  private def loadIndex():Result = {
     val f = new File("webConsole/front/index.html")
-    Ok(scala.io.Source.fromFile(f.getCanonicalPath).mkString).as("text/html")
-  }
-
-  def dist(path: String) = Action {
-    val f = new File("webConsole/front/dist/" + path)
-    Ok(scala.io.Source.fromFile(f.getCanonicalPath).mkString).as("text/html")
-  }
-
-  def favicon() = Action {
-    val f = new File("webConsole/front/public/favicon")
     Ok(scala.io.Source.fromFile(f.getCanonicalPath).mkString).as("text/html")
   }
 
