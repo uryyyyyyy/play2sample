@@ -4,8 +4,6 @@ import java.io.File
 import javax.inject.{Inject, Singleton}
 
 import akka.actor.ActorSystem
-import controllers.api.auth.{AuthConfigImpl, NormalUser}
-import jp.t2v.lab.play2.auth.AuthElement
 import play.api.Play
 import play.api.mvc.{Action, Controller, Result}
 
@@ -13,19 +11,15 @@ import scala.concurrent.{ExecutionContext, Future}
 
 
 @Singleton
-class HomeController @Inject() (actorSystem: ActorSystem) extends Controller with AuthElement with AuthConfigImpl{
+class HomeController @Inject() (actorSystem: ActorSystem) extends Controller{
 
   implicit val myExecutionContext: ExecutionContext = actorSystem.dispatcher
 
-  def index = AsyncStack(AuthorityKey -> NormalUser) { implicit request =>
+  def index = Action.async {
     Future {loadIndex()}
   }
 
-  def indexAll(path: String) = AsyncStack(AuthorityKey -> NormalUser) { implicit request =>
-    Future {loadIndex()}
-  }
-
-  def loginForm = Action.async {
+  def indexAll(path: String) = Action.async {
     Future {loadIndex()}
   }
 

@@ -3,19 +3,15 @@ import * as ReactDOM from "react-dom";
 import {Router, Route, browserHistory, IndexRoute} from "react-router";
 import Root from "./Root";
 import NotFound from "./NotFound";
-import authCheckRoot from "./home/Root";
-import loginRoot from "./login/Root";
+import homeRoot from "./Home";
 import {Provider} from "react-redux";
 import store from "./Store";
-import {Paths} from "./Models";
 
 ReactDOM.render(
     <Provider store={store}>
         <Router history={browserHistory}>
-            <Route path={Paths.LOGIN} component={loginRoot} />
             <Route path='/' component={Root} >
-                <IndexRoute component={authCheckRoot}/>
-                <Route path={Paths.AUTH_CHECK} component={authCheckRoot} />
+                <IndexRoute component={homeRoot}/>
                 <Route path="*" component={NotFound} />
             </Route>
         </Router>
