@@ -36,4 +36,8 @@ class HomeController @Inject()(actorSystem: ActorSystem) extends Controller {
     Ok(myRoutes.mkString("\n"))
   }
 
+  def apiAction() = Action{
+    Ok("this is it!")
+  }
+
 }

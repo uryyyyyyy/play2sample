@@ -1,4 +1,3 @@
 
 
-GET     /authorize/admin              controllers.auth.AuthorizeController.checkAdminRole
-GET     /authorize/normal              controllers.auth.AuthorizeController.checkNormalRole
+GET     /action              controllers.HomeController.apiAction()
