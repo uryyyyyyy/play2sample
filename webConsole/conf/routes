@@ -4,8 +4,18 @@
 
 # An example controller showing a sample home page
 
+->  /api api.Routes
+
+# static file
+GET     /public/*file               controllers.Assets.versioned(path="/public", file: Asset)
+GET     /favicon.ico               controllers.Assets.at(path="/public/images", file="favicon.png")
+
+# login/logout
 GET     /authentication/login/:userId/:password               controllers.auth.AuthenticateController.login(userId: String, password: String)
 GET     /authentication/logout              controllers.auth.AuthenticateController.logout
 
-GET     /authorize/admin              controllers.auth.AuthorizeController.checkAdminRole
-GET     /authorize/normal              controllers.auth.AuthorizeController.checkNormalRole
+GET /routes    controllers.HomeController.routes
+
+GET /login    controllers.HomeController.login
+GET /         controllers.HomeController.index
+GET /*path    controllers.HomeController.indexAll(path)
