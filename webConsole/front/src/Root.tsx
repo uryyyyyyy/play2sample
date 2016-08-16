@@ -1,23 +1,21 @@
-import * as React from "react";
-import {Link} from "react-router";
+import * as React from 'react';
+import {Link} from "react-router"
 import {Paths} from "./Models";
 
 interface Props {
-  children: any
+    children: any
 }
 
 export default class Root extends React.Component<Props, {}> {
-
-  render() {
-    const props: any = {globalState: {num: 1}};
-    const children: any = this.props.children;
-    return (
-      <div>
-        <h1>Play2 React</h1>
-        <li><Link to="/" >Home</Link></li>
-        <li><Link to={Paths.LOGIN} >Login</Link></li>
-        {children && React.cloneElement(children, props)}
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div>
+                <h1>React Redux sample</h1>
+                <li><Link to="/" >Home</Link></li>
+                <li><Link to={Paths.COUNTER} >Counter</Link></li>
+                <li><Link to="/random_url" >Notfound</Link></li>
+                {this.props.children}
+            </div>
+        );
+    }
 }

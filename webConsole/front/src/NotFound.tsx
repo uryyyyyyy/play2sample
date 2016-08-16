@@ -1,11 +1,11 @@
-import * as React from "react";
+import * as React from 'react';
 
 export interface Props {
-  content: string;
+    content: string;
 }
 
 export default class MyComponent extends React.Component<Props, {}> {
-  render() {
-    return <h2>not found</h2>
-  }
+    render() {
+        return <h2>not found</h2>
+    }
 }

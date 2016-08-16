@@ -1,31 +1,33 @@
 package controllers
 
-import java.io.File
 import javax.inject.{Inject, Singleton}
 
 import akka.actor.ActorSystem
 import play.api.Play
-import play.api.mvc.{Action, Controller, Result}
+import play.api.mvc.{Action, AnyContent, Controller}
 
 import scala.concurrent.{ExecutionContext, Future}
 
 
 @Singleton
-class HomeController @Inject() (actorSystem: ActorSystem) extends Controller{
+class HomeController @Inject()(actorSystem: ActorSystem) extends Controller {
 
   implicit val myExecutionContext: ExecutionContext = actorSystem.dispatcher
 
-  def index = Action.async {
-    Future {loadIndex()}
+  def authCheck = Action.async {
+    Future{ Unauthorized("hello")}
   }
 
-  def indexAll(path: String) = Action.async {
-    Future {loadIndex()}
+  def index = {
+    loadIndex()
   }
 
-  private def loadIndex():Result = {
-    val f = new File("webConsole/front/index.html")
-    Ok(scala.io.Source.fromFile(f.getCanonicalPath).mkString).as("text/html")
+  def indexAll(path: String) = {
+    loadIndex()
+  }
+
+  private def loadIndex(): Action[AnyContent] = {
+    controllers.Assets.at(path="/public", file="index.html")
   }
 
   //DIしたいけどRouterはController依存なので循環参照してしまう。

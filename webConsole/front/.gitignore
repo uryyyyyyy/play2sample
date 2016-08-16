@@ -1,8 +1,6 @@
-dist/
+public/bundle/
 node_modules/
 .idea/
 typings/modulues
 typings/
 npm-debug.log/
-public/dist/
-public/libs/

@@ -12,15 +12,24 @@ module.exports = {
     filename: '[name].js'
   },
 
-  plugins: [commonsPlugin],
-
-  // Enable sourcemaps for debugging webpack's output.
-  devtool: "source-map",
-
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
     extensions: ["", ".ts", ".tsx", ".js"]
   },
+
+  plugins: [
+    commonsPlugin,
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    }),
+    new webpack.DefinePlugin({
+      'process.env':{
+        'NODE_ENV': JSON.stringify('production')
+      }
+    })
+  ],
 
   module: {
     loaders: [

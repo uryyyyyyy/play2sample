@@ -1,12 +1,23 @@
 import * as React from "react";
+import * as ReactDOM from "react-dom";
+import * as axios from "axios";
 
-export interface Props {
-  content: string;
+function login(){
+    location.href = "/";
 }
 
-export default class Login extends React.Component<Props, {}> {
-  render() {
-    return <h2>Login</h2>
-  }
-
+function failCB():void {
+    ReactDOM.render(
+        <button onClick={() => login()}>login</button>,
+        document.getElementById('app')
+    );
 }
+
+function successCB(val: any):void {
+    alert("login済みです。ホームへ移動します。");
+    login()
+}
+
+axios.get("authCheck")
+    .then(successCB)
+    .catch(failCB);
