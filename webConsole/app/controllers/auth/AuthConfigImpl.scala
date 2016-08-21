@@ -1,6 +1,7 @@
 package controllers.auth
 
 import jp.t2v.lab.play2.auth._
+import org.keyczar.Signer
 import play.api.mvc.{RequestHeader, Result, Results}
 import utils._
 
@@ -69,17 +70,15 @@ trait AuthConfigImpl extends AuthConfig {
     * tokenのやりとりをどのように行うかを定義します。
     * デフォルトではCookieによるトークンの授受が実装されています。
     */
-  override lazy val tokenAccessor: TokenAccessor = new CookieTokenAccessor(
-    cookieMaxAge = Some(sessionTimeoutInSeconds)
-  ){
+  override lazy val tokenAccessor: TokenAccessor = new CookieTokenAccessor(cookieMaxAge = Some(sessionTimeoutInSeconds)){
+
+    val signer = new Signer("/home/shiba/Desktop/keys")
+
     override def verifyHmac(token: SignedToken): Option[AuthenticityToken] = {
-      println("verifyHmac: " + token)
-      val rawToken = token.replace("/", "")
-      Some(rawToken)
+      val (hmac, value) = token.splitAt(34)//HMAC_SHA1
+      if (safeEquals(signer.sign(value), hmac)) Some(value) else None
     }
-    override def sign(token: AuthenticityToken): SignedToken = {
-      println("sign: " + token)
-      token + "/"
-    }
+
+    override def sign(token: AuthenticityToken): SignedToken = signer.sign(token) + token
   }
 }

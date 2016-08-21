@@ -23,6 +23,7 @@ lazy val webConsole = (project in file("webConsole"))
       "jp.t2v" %% "play2-auth-social" % "0.14.2",
       "jp.t2v" %% "play2-auth-test"   % "0.14.2" % "test",
       "jp.t2v" %% "stackable-controller" % "0.6.0",
+      "org.keyczar" % "keyczar" % "0.71h",
       "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % Test,
       "org.mockito" % "mockito-all" % "1.10.19" % Test
     )

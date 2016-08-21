@@ -4,17 +4,14 @@ import java.util.concurrent.TimeUnit
 
 import akka.actor.ActorSystem
 import akka.util.Timeout
-import jp.t2v.lab.play2.auth._
 import org.mockito.Mockito._
 import org.scalatest.mock.MockitoSugar
 import org.scalatest.{FunSpec, MustMatchers}
 import play.api.cache.CacheApi
-import play.api.mvc.Cookie
 import play.api.test.{FakeRequest, Helpers}
-import utils.{AuthService, MyUser, NormalUser}
+import utils.{Administrator, AuthService, MyUser, NormalUser}
 
 import scala.collection.mutable
-import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 import scala.reflect.ClassTag
 
@@ -24,16 +21,16 @@ class AuthorizeControllerTest extends FunSpec with MustMatchers with MockitoSuga
 
     implicit val timeout = Timeout(5000, TimeUnit.MILLISECONDS)
 
-//    it("returnUser"){
-//
-//      val actorSystem = ActorSystem.apply()
-//      val controller = new AuthorizeController(actorSystem, null, null)
-//      val user = MyUser("admin", "pass", Administrator)
-//      val result = controller.returnUser(user)
-//
-//      Helpers.contentAsString(result) mustBe "id: admin"
-//      Helpers.status(result) mustBe 200
-//    }
+    it("returnUser"){
+
+      val actorSystem = ActorSystem.apply()
+      val controller = new AuthorizeController(actorSystem, null, null)
+      val user = MyUser("admin", "pass", Administrator)
+      val result = controller.returnUser(user)
+
+      Helpers.contentAsString(result) mustBe "id: admin"
+      Helpers.status(result) mustBe 200
+    }
 
     it("checkAdminRole"){
 
@@ -56,8 +53,6 @@ class AuthorizeControllerTest extends FunSpec with MustMatchers with MockitoSuga
       val authenticateController = new AuthenticateController(actorSystem, mockService, memCache)
       val response = authenticateController.login("normal", "pass2").apply(FakeRequest())
       val cookies = Helpers.cookies(response)
-
-      println(cookies.mkString(", "))
 
       val controller = new AuthorizeController(actorSystem, mockService, memCache)
 
