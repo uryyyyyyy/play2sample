@@ -11,6 +11,8 @@ trait AuthConfigImpl extends AuthConfig {
 
   val authService: AuthService
 
+  override val idContainer: AsyncIdContainer[Id]
+
   override type Id = String
 
   override type User = MyUser
@@ -61,7 +63,7 @@ trait AuthConfigImpl extends AuthConfig {
   /**
     * セッショントークンの管理をします。デフォルトではPlayのCache APIを用いています。
     */
-  override lazy val idContainer: AsyncIdContainer[Id] = AsyncIdContainer(new CacheIdContainer[Id])
+//  override lazy val idContainer: AsyncIdContainer[Id] = AsyncIdContainer(new utils.CacheIdContainer[Id](cache))
 
   /**
     * tokenのやりとりをどのように行うかを定義します。
@@ -69,5 +71,15 @@ trait AuthConfigImpl extends AuthConfig {
     */
   override lazy val tokenAccessor: TokenAccessor = new CookieTokenAccessor(
     cookieMaxAge = Some(sessionTimeoutInSeconds)
-  )
+  ){
+    override def verifyHmac(token: SignedToken): Option[AuthenticityToken] = {
+      println("verifyHmac: " + token)
+      val rawToken = token.replace("/", "")
+      Some(rawToken)
+    }
+    override def sign(token: AuthenticityToken): SignedToken = {
+      println("sign: " + token)
+      token + "/"
+    }
+  }
 }

@@ -3,15 +3,18 @@ package controllers.auth
 import javax.inject.{Inject, Singleton}
 
 import akka.actor.ActorSystem
-import jp.t2v.lab.play2.auth.AuthElement
+import jp.t2v.lab.play2.auth.{AsyncIdContainer, AuthElement}
+import play.api.cache.CacheApi
 import play.api.mvc.{Controller, Result}
-import utils.{Administrator, AuthService, MyUser, NormalUser}
+import utils._
 
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
 class AuthorizeController @Inject() (actorSystem: ActorSystem,
-  val authService: AuthService) extends Controller with AuthElement with AuthConfigImpl {
+  val authService: AuthService, val cache: CacheApi) extends Controller with AuthElement with AuthConfigImpl {
+
+  override lazy val idContainer = AsyncIdContainer(new CacheIdContainer[Id](cache))
 
   implicit val myExecutionContext: ExecutionContext = actorSystem.dispatcher
 
