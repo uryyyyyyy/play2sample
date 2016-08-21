@@ -2,6 +2,7 @@ package controllers.auth
 
 import jp.t2v.lab.play2.auth._
 import org.keyczar.Signer
+import play.api.cache.CacheApi
 import play.api.mvc.{RequestHeader, Result, Results}
 import utils._
 
@@ -12,7 +13,7 @@ trait AuthConfigImpl extends AuthConfig {
 
   val authService: AuthService
 
-  override val idContainer: AsyncIdContainer[Id]
+  val cache: CacheApi
 
   override type Id = String
 
@@ -64,7 +65,7 @@ trait AuthConfigImpl extends AuthConfig {
   /**
     * セッショントークンの管理をします。デフォルトではPlayのCache APIを用いています。
     */
-//  override lazy val idContainer: AsyncIdContainer[Id] = AsyncIdContainer(new utils.CacheIdContainer[Id](cache))
+  override lazy val idContainer: AsyncIdContainer[Id] = AsyncIdContainer(new utils.CacheIdContainer[Id](cache))
 
   /**
     * tokenのやりとりをどのように行うかを定義します。
