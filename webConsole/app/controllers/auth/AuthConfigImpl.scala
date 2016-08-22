@@ -73,7 +73,7 @@ trait AuthConfigImpl extends AuthConfig {
     */
   override lazy val tokenAccessor: TokenAccessor = new CookieTokenAccessor(cookieMaxAge = Some(sessionTimeoutInSeconds)){
 
-    val signer = new Signer("/home/shiba/Desktop/keys")
+    val signer = new Signer("/custom/play2Sample/cryptKeys")
 
     override def verifyHmac(token: SignedToken): Option[AuthenticityToken] = {
       val (hmac, value) = token.splitAt(34)//HMAC_SHA1

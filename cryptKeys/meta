@@ -1,0 +1,13 @@
+{
+    "encrypted": false, 
+    "name": "Name of Keyset", 
+    "purpose": "SIGN_AND_VERIFY", 
+    "type": "HMAC_SHA1", 
+    "versions": [
+        {
+            "exportable": true, 
+            "status": "PRIMARY", 
+            "versionNumber": 1
+        }
+    ]
+}
